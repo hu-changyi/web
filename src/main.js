@@ -8,7 +8,7 @@ import 'echarts-gl'
 import jquery from 'jquery'
 import "echarts/map/js/china.js";
 import china from 'echarts/map/json/china.json'
-import 'echarts/theme/shine.js'
+import '../static/shine.js'
 echarts.registerMap('blue', china)
 
 Vue.config.productionTip = false

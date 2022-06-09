@@ -100,11 +100,8 @@ export default {
     this.currentTime();
   },
   beforeMount() {
-
   },
   mounted() {
-
-
   },
   updated() {
     this.getEchartData1();
@@ -117,9 +114,7 @@ export default {
     this.getEchartData8();
     this.getEchartData9();
   },
-
   methods: {
-
     //   时间
     currentTime() {
       setInterval(this.getTime, 1000);/* setInterval方法会不停地调用函数，直到 clearInterval被调用或窗口被关闭。 */
@@ -194,7 +189,7 @@ export default {
       };
     },
     getEchartData2() {
-      let myChart2 = this.$echarts.init(this.$refs.chart2,'shine')
+      let myChart2 = this.$echarts.init(this.$refs.chart2, 'shine')
       myChart2.setOption({
         textStyle: {
           color: 'rgb(175, 198, 223)',
@@ -375,7 +370,7 @@ export default {
       };
     },
     getEchartData5() {
-      let myChart5 = this.$echarts.init(this.$refs.chart5,'shine')
+      let myChart5 = this.$echarts.init(this.$refs.chart5, 'shine')
       myChart5.setOption({
         textStyle: {
           color: 'rgb(175, 198, 223)',
@@ -400,7 +395,7 @@ export default {
       };
     },
     getEchartData6() {
-      let myChart6 = this.$echarts.init(this.$refs.chart6,'shine')
+      let myChart6 = this.$echarts.init(this.$refs.chart6, 'shine')
       myChart6.setOption({
         textStyle: {
           color: 'rgb(175, 198, 223)',
@@ -422,7 +417,7 @@ export default {
       };
     },
     getEchartData7() {
-      let myChart7 = this.$echarts.init(this.$refs.chart7,'shine')
+      let myChart7 = this.$echarts.init(this.$refs.chart7, 'shine')
       myChart7.setOption({
         textStyle: {
           color: 'rgb(175, 198, 223)',
@@ -434,7 +429,12 @@ export default {
             type: 'shadow'
           }
         },
-        legend: {},
+        legend: {
+          textStyle: {
+            color: 'rgb(175, 198, 223)',
+            fontSize: 14,
+          },
+        },
         xAxis: {
           data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
         },
@@ -457,13 +457,8 @@ export default {
       };
     },
     getEchartData8() {
-      let myChart8 = this.$echarts.init(this.$refs.chart8,'shine')
+      let myChart8 = this.$echarts.init(this.$refs.chart8, 'shine')
       myChart8.setOption({
-/*         title: {
-          text: 'Nightingale Chart',
-          subtext: 'Fake Data',
-          left: 'center'
-        }, */
         legend: {
           left: 'center',
           top: 'bottom',
@@ -525,23 +520,15 @@ export default {
       };
     },
     getEchartData9() {
-      let myChart9 = this.$echarts.init(this.$refs.chart9,'shine')
+      let myChart9 = this.$echarts.init(this.$refs.chart9, 'shine')
       myChart9.setOption({
-        textStyle: {
-          color: 'rgb(175, 198, 223)',
-          fontSize: 14,
-        },
+
         angleAxis: {
           type: 'category',
           /* data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] */
         },
         radiusAxis: {},
         polar: {
-          color: 'rgb(175, 198, 223)',
-          textStyle: {
-          color: 'rgb(175, 198, 221)',
-          fontSize: 15,
-        },
         },
         series: [
           {
@@ -576,6 +563,10 @@ export default {
           }
         ],
         legend: {
+          textStyle: {
+            color: 'rgb(175, 198, 223)',
+            fontSize: 14,
+          },
           show: true,
           left: 'right',
           top: 'top',
@@ -711,7 +702,7 @@ export default {
 }
 
 .map {
-  width: calc(58% - 30px);
+  width: calc(58% - 35px);
   height: calc(100%);
   margin: 5px;
   margin-bottom: 1px;
