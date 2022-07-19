@@ -90,19 +90,20 @@
 import '../assets/china.js';
 export default {
   data() {
-    
     return {
       time: "",
-      title: ""
+      title: "中医中药文化数字传播平台"
     };
+
   },
   created() {
-    //this.currentTime();
-    this.getData();
+    this.currentTime();
   },
   beforeMount() {
   },
   mounted() {
+  },
+  updated() {
     this.getEchartData1();
     this.getEchartData2();
     this.getEchartData3();
@@ -113,19 +114,10 @@ export default {
     this.getEchartData8();
     this.getEchartData9();
   },
-  updated() {
-
-  },
   methods: {
     //   时间
     currentTime() {
       setInterval(this.getTime, 1000);/* setInterval方法会不停地调用函数，直到 clearInterval被调用或窗口被关闭。 */
-    },
-    getData(){
-      let jsonData = {};
-      //this.axios.get('/static/test.json').then((response) => {console.log(response.data)}),
-      this.axios.get('/static/test.json').then((response) => {this.title=response.data});
-      this.title = '123';
     },
     getTime() {
       let yy = new Date().getFullYear();

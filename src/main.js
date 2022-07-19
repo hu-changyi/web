@@ -9,6 +9,10 @@ import jquery from 'jquery'
 import "echarts/map/js/china.js";
 import china from 'echarts/map/json/china.json'
 import '../static/shine.js'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
 echarts.registerMap('blue', china)
 
 Vue.config.productionTip = false
