@@ -12,7 +12,7 @@
     <div class="middle">
       <div class="box">
         <div class="box_title">
-          <a class="a3" style="">线下百家讲堂</a>
+          <a class="a3" style="">{{ title1 }}</a>
         </div>
         <div class="box_data">
           <div ref="chart1" style="width:100%;height:100%"></div>
@@ -20,20 +20,25 @@
       </div>
       <div class="box">
         <div class="box_title">
-          <a class="a3" style="">线下专家义诊</a>
+          <a class="a3" style="">{{ title2 }}</a>
         </div>
         <div class="box_data">
           <div ref="chart2" style="width:100%;height:100%">
           </div>
         </div>
       </div>
-      <div class="map">
-        <div ref="chart3" style="width:100%;height:100%;">
+      <div class="map3">
+        <div class="box_title3">
+          <a class="a3" style="">{{ title3 }}</a>
+        </div>
+        <div class="box_data3">
+          <div ref="chart3" style="width:100%;height:100%">
+          </div>
         </div>
       </div>
       <div class="box">
         <div class="box_title">
-          <a class="a3" style="">中医中药出国门</a>
+          <a class="a3" style="">{{ title4 }}</a>
         </div>
         <div class="box_data">
           <a class="a2"></a>
@@ -42,7 +47,7 @@
       </div>
       <div class="box">
         <div class="box_title">
-          <a class="a3" style="">中医中药展示</a>
+          <a class="a3" style="">{{ title5 }}</a>
         </div>
         <div class="box_data">
           <div ref="chart5" style="width:100%;height:100%;"></div>
@@ -52,7 +57,7 @@
     <div class="bottom">
       <div class="bottom_box">
         <div class="bottom_box_title">
-          <a class="a3" style="">中医药研学旅行</a>
+          <a class="a3" style="">{{ title6 }}</a>
         </div>
         <div class="bottom_box_data">
           <div ref="chart6" style="width:100%;height:100%;"></div>
@@ -60,7 +65,7 @@
       </div>
       <div class="bottom_box">
         <div class="bottom_box_title">
-          <a class="a3" style="">中医健身养生</a>
+          <a class="a3" style="">{{ title7 }}</a>
         </div>
         <div class="bottom_box_data">
           <div ref="chart7" style="width:100%;height:100%;"></div>
@@ -68,7 +73,7 @@
       </div>
       <div class="bottom_box">
         <div class="bottom_box_title">
-          <a class="a3" style="">主题录播/专场直播</a>
+          <a class="a3" style="">{{ title8 }}</a>
         </div>
         <div class="bottom_box_data">
           <div ref="chart8" style="width:100%;height:100%;"></div>
@@ -76,7 +81,7 @@
       </div>
       <div class="bottom_box">
         <div class="bottom_box_title">
-          <a class="a3" style="">媒体触达</a>
+          <a class="a3" style="">{{ title9 }}</a>
         </div>
         <div class="bottom_box_data">
           <div ref="chart9" style="width:100%;height:100%;"></div>
@@ -88,21 +93,23 @@
 
 <script>
 import '../assets/china.js';
+var titlelist = '';
 export default {
   data() {
-    
+    this.getData();
     return {
-      time: "",
-      title: ""
+      title: "111",
     };
   },
   created() {
-    //this.currentTime();
-    this.getData();
+
   },
   beforeMount() {
   },
   mounted() {
+
+  },
+  updated() {
     this.getEchartData1();
     this.getEchartData2();
     this.getEchartData3();
@@ -113,46 +120,37 @@ export default {
     this.getEchartData8();
     this.getEchartData9();
   },
-  updated() {
-
-  },
   methods: {
-    //   时间
-    currentTime() {
-      setInterval(this.getTime, 1000);/* setInterval方法会不停地调用函数，直到 clearInterval被调用或窗口被关闭。 */
-    },
-    getData(){
-      let jsonData = {};
+    getData() {
+      let title3 = '';
       //this.axios.get('/static/test.json').then((response) => {console.log(response.data)}),
-      this.axios.get('/static/test.json').then((response) => {this.title=response.data});
-      this.title = '123';
+      this.axios.get('/static/test.json').then((response) => {
+        //this.title = response.data;
+        var obj = JSON.stringify(response.data);//JSON.stringify() 方法将 JavaScript 对象转换为字符串
+        //var obj1 = JSON.parse(obj); //JSON.parse() 方法将数据转换为 JavaScript 对象
+        titlelist = JSON.parse(obj); //JSON.parse() 方法将数据转换为 JavaScript 对象
+        this.title = titlelist.data[0].title;
+        this.title1 = titlelist.data[0].title1;
+        this.title2 = titlelist.data[0].title2;
+        this.title3 = titlelist.data[0].title3;
+        this.title4 = titlelist.data[0].title4;
+        this.title5 = titlelist.data[0].title5;
+        this.title6 = titlelist.data[0].title6;
+        this.title7 = titlelist.data[0].title7;
+        this.title8 = titlelist.data[0].title8;
+        this.title9 = titlelist.data[0].title9;
+      })
     },
-    getTime() {
-      let yy = new Date().getFullYear();
-      let mm = new Date().getMonth() + 1;
-      let dd = new Date().getDate();
-      let hh = new Date().getHours();
-      let mf =
-        new Date().getMinutes() < 10
-          ? "0" + new Date().getMinutes()
-          : new Date().getMinutes();
-      let ss =
-        new Date().getSeconds() < 10
-          ? "0" + new Date().getSeconds()
-          : new Date().getSeconds();
-      this.time =
-        yy + "/" + mm + "/" + dd + " " + hh + ":" + mf + ":" + ss;
-    },
-    /* const chart1 = this.$refs.chart1
-      if (chart1) {
-        const myChart1 = this.$echarts.init(chart1)
-        const option = {
-        }
-        myChart1.setOption(option)
-      } */
     getEchartData1() {
       let myChart1 = this.$echarts.init(this.$refs.chart1)
       myChart1.setOption({
+        title: {
+          text: '活动次数',
+          textStyle: {
+            color: 'rgb(175, 198, 223)',
+            fontSize: 18,
+          },
+        },
         textStyle: {
           color: 'rgb(175, 198, 223)',
           fontSize: 14,
@@ -164,15 +162,9 @@ export default {
           right: "5%",
         },
         xAxis: {
-          axisLabel: {},
-          splitLine: { lineStyle: {} }
         },
         yAxis: {
-          name: '单位：次/每月',
-          nameLocation: 'end', // 在头部
-          nameTextStyle: {
-          },
-          data: ['中医专家科普讲座', '社区健康教育讲座', '中医体育健身讲座', '中医中药研学讲座'],
+          data: ['党史学习', '红色观影', '党会座谈', '参观学习'],
           axisLabel: {
             interval: 0,
             showMaxLabel: true,
@@ -183,7 +175,7 @@ export default {
           {
             type: 'bar',
             barWidth: '15%',
-            data: [20, 40, 15, 32],
+            data: [11, 2, 3, 1],
             itemStyle: {
               color: 'rgb(98, 201, 141)',
               shadowColor: '#91cc75',
@@ -208,40 +200,44 @@ export default {
             type: 'pie',
             data: [
               {
-                value: 335,
-                name: '疾病诊断'
+                value: 35,
+                name: '便民利民'
               },
               {
-                value: 234,
-                name: '健康指导'
+                value: 34,
+                name: '扶贫帮困'
               },
               {
-                value: 1548,
-                name: '针灸推拿'
+                value: 548,
+                name: '就业指导'
               },
               {
-                value: 1548,
-                name: '中医药熏蒸'
+                value: 548,
+                name: '治安维稳'
               },
               {
-                value: 1548,
-                name: '中医药养生茶'
+                value: 548,
+                name: '卫生保健'
               },
               {
-                value: 1548,
-                name: '凉茶或防暑'
+                value: 148,
+                name: '环境维护'
               },
               {
-                value: 1548,
-                name: '防疫'
+                value: 158,
+                name: '宣传教育'
               },
               {
-                value: 1548,
-                name: '防感汤剂'
+                value: 154,
+                name: '文体娱乐'
               },
               {
-                value: 1548,
-                name: '膏方'
+                value: 22,
+                name: '助农增收'
+              },
+              {
+                value: 12,
+                name: '心理咨询'
               }
             ]
           }
@@ -260,8 +256,8 @@ export default {
           fontSize: 14,
         },
         title: {
-          text: "老年大学参与人数",
-          subtext: "单位:人次",
+          text: '',
+          subtext: "",
           x: "center",
           textStyle: {
             color: 'rgb(175, 198, 223)',
@@ -283,7 +279,7 @@ export default {
         //配置属性
         series: [
           {
-            name: "报名人数",
+            name: "参与人数人数",
             type: "map",
             mapType: "china",  //---此处是中国地图样式-------需要注意：省份中应使用汉字即如 ‘mapType:"河南"’
             roam: true,
@@ -341,37 +337,40 @@ export default {
     getEchartData4() {
       let myChart4 = this.$echarts.init(this.$refs.chart4)
       myChart4.setOption({
-        //backgroundColor: '#000',
+        textStyle: {
+          color: 'rgb(175, 198, 223)',
+          fontSize: 14,
+        },
         title: {
-          text: '全球媒体触达',
+          text: '',
+          subtext: "",
+          x: "center",
           textStyle: {
-            color: 'rgb(218, 249, 255)',
-            fontSize: 16,
+            color: 'rgb(175, 198, 223)',
+            fontSize: 18,
           },
         },
-        globe: {
-          baseTexture: '/static/world.topo.bathy.200401.jpg',
-          heightTexture: '/static/world.topo.bathy.200401.jpg',
-          displacementScale: 0.04,
-          shading: 'realistic',
-          environment: '/static/starfield.jpg',
-          realisticMaterial: {
-            roughness: 0.9
-          },
-          postEffect: {
-            enable: true
-          },
-          light: {
-            main: {
-              intensity: 5,
-              shadow: true
-            },
-            ambientCubemap: {
-              texture: '/static/pisa.hdr',
-              diffuseIntensity: 0.2
-            }
+        radar: {
+          // shape: 'circle',
+          indicator: [
+            { name: '书画乐器'},
+            { name: '摄影技术'},
+            { name: '舞蹈戏曲'},
+            { name: '养生保健'},
+            { name: '美食制作'},
+            { name: '游学研学'}
+          ]
+        },
+        series: [
+          {
+            type: 'radar',
+            data: [
+              {
+                value: [4200, 311000, 20000, 35000, 50000, 18000],
+              }
+            ]
           }
-        }
+        ]
       })
       window.onresize = function () {
         myChart4.resize();
@@ -380,20 +379,27 @@ export default {
     getEchartData5() {
       let myChart5 = this.$echarts.init(this.$refs.chart5, 'shine')
       myChart5.setOption({
+        title: {
+          text: '回收数量',
+          textStyle: {
+            color: 'rgb(175, 198, 223)',
+            fontSize: 18,
+          },
+        },
         textStyle: {
           color: 'rgb(175, 198, 223)',
           fontSize: 14,
         },
         xAxis: {
           type: 'category',
-          data: ['植物', '盆栽', '种植', '养护', '药用']
+          data: ['废纸', '塑料', '玻璃', '金属', '布料']
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 50, 250],
+            data: [320, 200, 150, 50, 250],
             type: 'line'
           }
         ]
@@ -410,7 +416,7 @@ export default {
           fontSize: 14,
         },
         xAxis: {
-          data: ['产业园', '健康旅游', '康养小镇', '博物馆']
+          data: ['助餐', '助洁', '助医', '远程照护']
         },
         yAxis: {},
         series: [
@@ -449,12 +455,12 @@ export default {
         yAxis: {},
         series: [
           {
-            name: '八段锦',
+            name: '短视频',
             type: 'bar',
             data: [4, 5, 8, 5, 7, 8, 5, 8, 5, 7, 8, 5]
           },
           {
-            name: '太极拳',
+            name: '图文秀',
             type: 'bar',
             data: [26, 24, 18, 22, 23, 20, 27, 18, 22, 23, 20, 27]
           }
@@ -480,7 +486,7 @@ export default {
         },
         series: [
           {
-            name: '主题录播',
+            name: '',
             type: 'pie',
             radius: [20, 40],
             center: ['25%', '50%'],
@@ -489,7 +495,7 @@ export default {
               borderRadius: 5
             },
             label: {
-              show: false
+              //show: false
             },
             emphasis: {
               label: {
@@ -497,15 +503,15 @@ export default {
               }
             },
             data: [
-              { value: 40, name: '' },
-              { value: 33, name: '' },
-              { value: 28, name: '' },
-              { value: 22, name: '' },
-              { value: 20, name: '' }
+              { value: 1, name: '门禁' },
+              { value: 1, name: '停车' },
+              { value: 1, name: '电梯广告' },
+              { value: 1, name: '广播' },
+              { value: 1, name: '公共WiFi' }
             ]
           },
           {
-            name: '专场直播',
+            name: '',
             type: 'pie',
             radius: [20, 40],
             center: ['75%', '50%'],
@@ -514,11 +520,11 @@ export default {
               borderRadius: 5
             },
             data: [
-              { value: 30, name: '在线咨询' },
-              { value: 28, name: '现场连线' },
-              { value: 26, name: '有奖竞答' },
-              { value: 24, name: '活动抽奖' },
-              { value: 22, name: '活动转发' }
+              { value: 1, name: '停车诱导' },
+              { value: 1, name: '消防' },
+              { value: 1, name: '监控' },
+              { value: 1, name: '巡更' },
+              { value: '', name: '' }
             ]
           }
         ]
@@ -541,9 +547,9 @@ export default {
         series: [
           {
             type: 'bar',
-            data: [1, 2, 3, 4, 3, 5, 1],
+            data: [1, 2, 3, 4, 3, 5, 2, 4, 6, 1, 3, 2],
             coordinateSystem: 'polar',
-            name: '主流媒体',
+            name: '传统节日',
             stack: 'a',
             emphasis: {
               focus: 'series'
@@ -551,9 +557,9 @@ export default {
           },
           {
             type: 'bar',
-            data: [2, 4, 6, 1, 3, 2, 1],
+            data: [2, 4, 6, 1, 3, 2, 2, 4, 6, 1, 3, 2],
             coordinateSystem: 'polar',
-            name: '垂直媒体',
+            name: '二十四节气',
             stack: 'a',
             emphasis: {
               focus: 'series'
@@ -561,7 +567,7 @@ export default {
           },
           {
             type: 'bar',
-            data: [1, 2, 3, 4, 1, 2, 5],
+            data: [1, 2, 3, 4, 1, 2, 2, 4, 6, 1, 3, 2],
             coordinateSystem: 'polar',
             name: '新媒体',
             stack: 'a',
@@ -578,7 +584,7 @@ export default {
           show: true,
           left: 'right',
           top: 'top',
-          data: ['主流媒体', '垂直媒体', '新媒体']
+          data: ['传统节日', '二十四节气', '新媒体']
         }
       })
       window.onresize = function () {
@@ -709,6 +715,23 @@ export default {
   border-radius: 2px;
 }
 
+.box_title3 {
+  width: 100%;
+  height: 7%;
+  border: 1px solid rgb(47, 137, 196);
+  box-shadow: inset 0 0 10px rgba(7, 118, 181, .4);
+  border-radius: 2px;
+}
+
+.box_data3 {
+  align-items: center;
+  width: 100%;
+  height: 93%;
+  border: 1px solid rgb(47, 137, 196);
+  box-shadow: inset 0 0 10px rgba(7, 118, 181, .4);
+  border-radius: 2px;
+}
+
 .map {
   width: calc(58% - 35px);
   height: calc(100%);
@@ -717,6 +740,12 @@ export default {
   border: 1px solid rgb(47, 137, 196);
   box-shadow: inset 0 0 10px rgba(7, 118, 181, .4);
   border-radius: 2px;
+}
+
+.map3 {
+  width: calc(58% - 35px);
+  height: calc(100%);
+  margin: 5px;
 }
 
 .bottom {
@@ -747,6 +776,8 @@ export default {
   border-top: none;
   border-left: none;
 }
+
+
 
 /*.test #test{
   background-image: url('../assets/bg.png');
