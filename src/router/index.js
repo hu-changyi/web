@@ -23,5 +23,11 @@ export default new Router({
       name: 'data',
       component: data
     }
+    ,
+    {
+      path: '/medic',
+      name: 'medic',
+      component: data
+    }
   ]
 })
